@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -23,27 +24,39 @@ class AuthController extends Controller
             return response()->json($validator->errors());
         }
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password)
-        ]);
+        try {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password)
+            ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+            $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
-            'data' => $user,
-            'access_token' => $token,
-            'token_type' => 'Bearer'
-        ]);
+            return response()->json([
+                'status' => 200,
+                'error' => false,
+                'data' => $user,
+                'access_token' => $token,
+                'token_type' => 'Bearer'
+            ]);
+        } catch (Error $err) {
+            return response()->json([
+                'status' => 200,
+                'error' => true,
+                'message' => 'Wah ada error nih, gimana? ' + $err->getMessage()
+            ]);
+        }
     }
 
     public function login(Request $request)
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
+                'status' => 401,
+                'error' => true,
                 'message' => 'Unauthorized'
-            ], 401);
+            ]);
         }
 
         $user = User::where('email', $request->email)->firstOrFail();
@@ -51,6 +64,8 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
+            'status' => 200,
+            'error' => false,
             'message' => 'Login success',
             'access_token' => $token,
             'token_type' => 'Bearer',
@@ -60,14 +75,29 @@ class AuthController extends Controller
 
     public function detail(Request $request)
     {
-        return $request->user();
+        return response()->json([
+            'status' => 200,
+            'error' => false,
+            'data' => $request->user()
+        ]);
     }
 
     public function logout()
     {
         Auth::user()->tokens()->delete();
         return response()->json([
+            'status' => 200,
+            'error' => false,
             'message' => 'logout success'
+        ]);
+    }
+
+    public function unAuthenticated()
+    {
+        return response()->json([
+            'status' => 300,
+            'error' => true,
+            'message' => "Wah ada error nih, mungkin kamu kurang beruntung",
         ]);
     }
 }

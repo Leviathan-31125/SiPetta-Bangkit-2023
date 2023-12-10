@@ -142,8 +142,24 @@
       <div class="container-fluid">
         @yield('content')
       </div>
+
+      @yield('loading')
+      @yield('alert')
+      @yield('modal')
+      <div class="modal fade" role="dialog" id="modal_loading" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body pt-0" style="background-color: #FAFAF8; border-radius: 6px;">
+                <div class="text-center">
+                    <img style="border-radius: 4px; height: 140px;" src="{{ asset('assets/img/icons/loader.gif') }}" alt="Loading">
+                    <h6 style="position: absolute; bottom: 10%; left: 37%;" class="pb-2">Mohon Tunggu..</h6>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
   </div>
+  @include('scriptjs')
   <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
   <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/js/sidebarmenu.js"></script>
