@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\FarmIssueController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,4 +22,13 @@ Route::get('/unAuthenticated', [\App\Http\Controllers\Api\AuthController::class,
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [\App\Http\Controllers\Api\AuthController::class, 'logout']);
     Route::get('/user', [\App\Http\Controllers\Api\AuthController::class, 'detail']);
+
+    Route::controller(FarmIssueController::class)->prefix('/farm-issue')->group(function () {
+        Route::get('/', 'getAllFarmIssue');
+        Route::get('/{id}', 'getDetailFarmIssue');
+        Route::post('/', 'addFarmIssue');
+        Route::post('/{id}', 'updateFarmIssue');
+        Route::post('/reply/{id}', 'replyFarmIssue');
+        Route::delete('/{id}', 'deleteFarmIssue');
+    });
 });

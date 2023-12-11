@@ -97,7 +97,7 @@ class AuthController extends Controller
         return response()->json([
             'status' => 300,
             'error' => true,
-            'message' => "Wah ada error nih, mungkin kamu kurang beruntung",
+            'message' => "Wah ada error nih, Login dulu lah",
         ]);
     }
 }
