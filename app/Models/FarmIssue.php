@@ -14,11 +14,13 @@ class FarmIssue extends Model
     protected $primaryKey = 'fc_issueid';
     protected $fillable = [
         'fc_userid',
+        'fv_agricode',
         'fc_issuetitle',
         'fc_issuedescription',
         'fd_issuereleasedate',
         'fc_repliedstatus',
-        'fc_replierid'
+        'fc_replierid',
+        'ft_useranswer'
     ];
     protected $dates = ['deleted_at'];
 

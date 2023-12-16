@@ -61,8 +61,10 @@ class FarmIssueController extends Controller
         $validated = Validator::make($request->all(), [
             'title' => 'require',
             'description' => 'required',
+            'agricode' => 'required',
             'userid' => 'required',
-            'releasedate' => 'required'
+            'releasedate' => 'required',
+            'useranswer' => 'required'
         ]);
 
         if ($validated) {
@@ -70,8 +72,10 @@ class FarmIssueController extends Controller
                 $insertData = FarmIssue::create([
                     'fc_issuetitle' => $request->title,
                     'fc_issuedescription' => $request->description,
+                    'fv_agricode' => $request->agricode,
                     'fc_userid' => $request->userid,
-                    'fd_issuereleasedate' => $request->releasedate
+                    'fd_issuereleasedate' => $request->releasedate,
+                    'ft_useranswer' => $request->useranswer
                 ]);
 
                 if ($insertData) {
