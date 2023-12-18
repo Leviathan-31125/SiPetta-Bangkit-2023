@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\WebAdmin\AuthWebAdminController;
 use App\Http\Controllers\WebAdmin\NewsLetterController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,23 +19,33 @@ Route::get('/', function () {
     return view('welcome');
 })->name('login');
 
-Route::get('/dashboard', function () {
-    return view('apps/dashboard');
+Route::controller(AuthWebAdminController::class)->group(function () {
+    Route::get('/login', 'login')->name('webLogin');
+    Route::post('/authentication', 'authentication')->name('authentication');
 });
 
-Route::prefix('/apps')->group(function () {
-    Route::get('/master-user', function () {
-        return view('apps.masteruser');
-    });
-    Route::get('/master-menu', function () {
-        return view('apps.mastermenu');
-    });
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('apps/dashboard');
+    })->name('dashboard');
 
-    Route::controller(NewsLetterController::class)->prefix('/news-letter')
-        ->group(function () {
-            Route::get('/', 'index');
-            Route::get('/list', 'getAllNewsLetter');
-            Route::post('/', 'addNewsLetter');
-            Route::delete('/{id}', 'deleteNewsLetter');
+    Route::post('/logout', [AuthWebAdminController::class, 'logout'])
+        ->name('logout');
+
+    Route::prefix('/apps')->group(function () {
+        Route::get('/master-user', function () {
+            return view('apps.masteruser');
         });
+        Route::get('/master-menu', function () {
+            return view('apps.mastermenu');
+        });
+
+        Route::controller(NewsLetterController::class)->prefix('/news-letter')
+            ->group(function () {
+                Route::get('/', 'index');
+                Route::get('/list', 'getAllNewsLetter');
+                Route::post('/', 'addNewsLetter');
+                Route::delete('/{id}', 'deleteNewsLetter');
+            });
+    });
 });
