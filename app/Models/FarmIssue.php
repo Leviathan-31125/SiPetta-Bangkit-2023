@@ -35,4 +35,9 @@ class FarmIssue extends Model
     {
         return $this->hasOne(User::class, 'id', 'fc_replierid');
     }
+
+    public function farmAgri()
+    {
+        return $this->hasOne(AgriFarm::class, 'fv_agricode', 'fv_agricode');
+    }
 }
