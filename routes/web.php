@@ -24,7 +24,7 @@ Route::controller(AuthWebAdminController::class)->group(function () {
     Route::post('/authentication', 'authentication')->name('authentication');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'authwebadmin'])->group(function () {
     Route::get('/dashboard', function () {
         return view('apps/dashboard');
     })->name('dashboard');
