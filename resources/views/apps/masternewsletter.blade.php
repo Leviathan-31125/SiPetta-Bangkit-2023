@@ -318,7 +318,7 @@
               if (data['ft_linkresource'] != null || data['ft_linkresource'] != "") {
                 $('#newsletter_source').html(`<a href="${data['ft_linkresource']}">${data['ft_linkresource']}</a>`)
               } 
-              $('#modal_loading').modal('hide');
+
               $('#newsletter_modal_detail').modal('show');
           } else {
               iziToast.error({
@@ -327,6 +327,9 @@
                   position: 'topRight'
               });
           }
+          setTimeout(() => {
+            $('#modal_loading').modal('hide')
+          }, 300);
       },
       error: function(jqXHR, textStatus, errorThrown) {
           setTimeout(function() {
