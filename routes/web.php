@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\WebAdmin\AgriFarmController;
 use App\Http\Controllers\WebAdmin\AuthWebAdminController;
 use App\Http\Controllers\WebAdmin\NewsLetterController;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,16 @@ Route::middleware(['auth', 'authwebadmin'])->group(function () {
                 Route::put('/{id}', 'updateNewsLetter');
                 Route::post('/', 'addNewsLetter');
                 Route::delete('/{id}', 'deleteNewsLetter');
+            });
+
+        Route::controller(AgriFarmController::class)->prefix('/agri-farm')
+            ->group(function () {
+                Route::get('/', 'index');
+                Route::get('/list', 'getAllAgriFarm');
+                Route::get('/{id}', 'getDetailAgriFarm');
+                Route::put('/{id}', 'updateAgriFarm');
+                Route::post('/', 'addAgriFarm');
+                Route::delete('/{id}', 'deleteAgriFarm');
             });
     });
 });

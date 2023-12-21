@@ -53,7 +53,7 @@
             <li class="sidebar-item">
               <a class="sidebar-link" href="/apps/master-user" aria-expanded="false">
                 <span>
-                  <i class="ti ti-user"></i>
+                  <i class="fas fa-fingerprint"></i>
                 </span>
                 <span class="hide-menu">Daftar User</span>
               </a>
@@ -65,9 +65,33 @@
             <li class="sidebar-item">
               <a class="sidebar-link" href="/apps/news-letter" aria-expanded="false">
                 <span>
-                  <i class="ti ti-camera"></i>
+                  <i class="fas fa-camera"></i>
                 </span>
                 <span class="hide-menu">News Letter</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/apps/agri-farm" aria-expanded="false">
+                <span>
+                  <i class="fas fa-seedling"></i>
+                </span>
+                <span class="hide-menu">Urban Agriculture</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/apps/agri-disease" aria-expanded="false">
+                <span>
+                  <i class="fas fa-heartbeat"></i>
+                </span>
+                <span class="hide-menu">Penyakit Tanaman</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="/apps/disease-indicator" aria-expanded="false">
+                <span>
+                  <i class="fas fa-stethoscope"></i>
+                </span>
+                <span class="hide-menu">Gejala Penyakit</span>
               </a>
             </li>
           </ul>
@@ -178,6 +202,18 @@
   {{-- Datatables --}}
   <script src="{{ asset('assets/modules/datatables/datatables.min.js') }}"></script>
   <script>
+    function formatTimestamp(timestamp) {
+      if(timestamp == '0000-00-00 00:00:00'){
+          return '00-00-0000';
+      }
+
+      var date = new Date(timestamp);
+      var day = date.getDate();
+      var month = date.getMonth() + 1;
+      var year = date.getFullYear();
+      return day + '-' + month + '-' + year;
+    }
+    
     $.ajaxSetup({
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

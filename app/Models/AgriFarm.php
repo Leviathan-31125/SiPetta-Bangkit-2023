@@ -10,6 +10,7 @@ class AgriFarm extends Model
     use HasFactory;
 
     protected $table = 't_farmagri';
-    protected $primarykey = 'fv_agricode';
-    protected $fillable = ['fv_agriname', 'created_by'];
+    protected $primaryKey = 'fv_agricode';
+    protected $fillable = ['fv_agriname', 'created_by', 'updated_by'];
+    public $incrementing = false;
 }
