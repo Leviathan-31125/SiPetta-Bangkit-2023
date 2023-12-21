@@ -24,4 +24,11 @@ class NewsLetter extends Model
         'updated_by',
         'deleted_by'
     ];
+
+    public $incrementing = false;
+
+    public function category()
+    {
+        return $this->hasOne(TRXType::class, 'fc_trxcode', 'fv_category')->where('fc_trx', 'NEWSCATEGORY');
+    }
 }

@@ -24,7 +24,7 @@ Route::controller(AuthWebAdminController::class)->group(function () {
     Route::post('/authentication', 'authentication')->name('authentication');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'authwebadmin'])->group(function () {
     Route::get('/dashboard', function () {
         return view('apps/dashboard');
     })->name('dashboard');
@@ -44,6 +44,9 @@ Route::middleware('auth')->group(function () {
             ->group(function () {
                 Route::get('/', 'index');
                 Route::get('/list', 'getAllNewsLetter');
+                Route::get('/category', 'getAllCategory');
+                Route::get('/{id}', 'getDetailNewsLetter');
+                Route::put('/{id}', 'updateNewsLetter');
                 Route::post('/', 'addNewsLetter');
                 Route::delete('/{id}', 'deleteNewsLetter');
             });

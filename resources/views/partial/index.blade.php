@@ -4,11 +4,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   <title>Modernize Free</title>
   <link rel="shortcut icon" type="image/png" href="{{asset('assets/images/logos/icon-sipetta.png')}}" />
   <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('assets/modules/datatables/datatables.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/modules/fontawesome/css/all.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/modules/select2/dist/css/select2.min.css') }}" />
 
   @yield('custome-css')
 </head>
@@ -152,16 +154,16 @@
       @yield('modal')
       <div class="modal fade" role="dialog" id="modal_loading" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body pt-0" style="background-color: #FAFAF8; border-radius: 6px;">
-                <div class="text-center">
-                    <img style="border-radius: 4px; height: 140px;" src="{{ asset('assets/img/icons/loader.gif') }}" alt="Loading">
-                    <h6 style="position: absolute; bottom: 10%; left: 37%;" class="pb-2">Mohon Tunggu..</h6>
-                </div>
-            </div>
+          <div class="modal-content">
+              <div class="modal-body pt-0" style="background-color: #FAFAF8; border-radius: 6px;">
+                  <div class="text-center">
+                      <img style="border-radius: 4px; height: 140px;" src="{{ asset('assets/images/icons/loader.gif') }}" alt="Loading">
+                      <h6 style="position: absolute; bottom: 10%; left: 37%;" class="pb-2">Mohon Tunggu..</h6>
+                  </div>
+              </div>
+          </div>
         </div>
-    </div>
-    </div>
+      </div>
   </div>
   @include('scriptjs')
   <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
@@ -171,9 +173,17 @@
   <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
   <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
   <script src="../assets/js/dashboard.js"></script>
-  
+  {{-- Select2  --}}
+  <script type="text/javascript" src="{{ asset('assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
   {{-- Datatables --}}
   <script src="{{ asset('assets/modules/datatables/datatables.min.js') }}"></script>
+  <script>
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+  </script>
   @yield('custom-js')
 </body>
 
