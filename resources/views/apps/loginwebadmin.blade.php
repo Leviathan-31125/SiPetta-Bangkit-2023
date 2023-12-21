@@ -8,7 +8,7 @@
     <title>SiPetta</title>
     <style>
         html, body {
-            background-color: #a6d76d;
+            background-color: #224b32;
             margin: 0;
             height: 100%;
         }
@@ -35,7 +35,7 @@
                 <label for="exampleInputPassword1" class="form-label">Password</label>
                 <input type="password" class="form-control" id="input-password" name="password">
             </div>
-            <button type="submit" class="btn btn-success">Login</button>
+            <button type="submit" class="btn btn-success" style="width: 100%">Login</button>
         </form>
     </div>
 </body>
