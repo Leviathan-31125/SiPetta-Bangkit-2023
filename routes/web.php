@@ -44,6 +44,9 @@ Route::middleware(['auth', 'authwebadmin'])->group(function () {
             ->group(function () {
                 Route::get('/', 'index');
                 Route::get('/list', 'getAllNewsLetter');
+                Route::get('/category', 'getAllCategory');
+                Route::get('/{id}', 'getDetailNewsLetter');
+                Route::put('/{id}', 'updateNewsLetter');
                 Route::post('/', 'addNewsLetter');
                 Route::delete('/{id}', 'deleteNewsLetter');
             });
